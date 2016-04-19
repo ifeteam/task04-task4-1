@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>task2-6</title>
+  <style type="text/css">
+  .num{background-color: red;color: #fff;text-align: center;line-height: 40px;float: left;margin: 0 5px;padding: 5px;}
+  </style>
+</head>
+<body>
+  <label for="in"><input type="text" id="in"></label>
+  <button id="leftin">左侧入</button>
+  <button id="rightin">右侧入</button>
+  <button id="leftout">左侧出</button>
+  <button id="rightout">右侧出</button>
+  <div id="container">
+  </div>
+  <script type="text/javascript">
+    (function () {
+      var lIn = document.getElementById('leftin');
+      var rIn = document.getElementById('rightin');
+      var lOut = document.getElementById('leftout');
+      var rOut = document.getElementById('rightout');
+      var con = document.getElementById('container');
+      var arr = [];
+      function aa () {
+        con.innerHTML = '';
+        for (var i = 0; i < arr.length; i++) {
+         var l = document.createElement('div');
+         l.innerHTML = arr[i];
+         l.className = 'num';
+         con.appendChild(l);
+        }
+      }
+      lIn.onclick = function () {
+        var val = document.getElementById('in').value;
+         if(!val.match(/^\d+$/)) {
+             alert("必须为整数！")
+             return;
+         }
+         arr.unshift(val);
+         aa();
+      }
+      rIn.onclick = function () {
+          var val = document.getElementById('in').value;
+          if(!val.match(/^\d+$/)) {
+             alert("必须为整数！")
+             return;
+          }
+           arr.push(val);
+           aa();
+      }
+      lOut.onclick = function () {
+          arr.shift();
+          aa();
+      }
+      rOut.onclick = function () {
+          arr.pop();
+          aa();
+      }
+      con.addEventListener('click', function (e) {
+         var event = e || window.event;
+         var tar = event.target || event.srcElement;
+         if (tar.nodeName.toLowerCase() == "div") {
+          var i = arr.indexOf(tar.innerHTML);
+          arr.splice(i,1);
+          aa(arr);
+         }
+      })
+    })()
+  </script>
+</body>
+</html>
